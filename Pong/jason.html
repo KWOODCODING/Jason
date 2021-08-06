@@ -1,0 +1,58 @@
+<html>
+<head>
+<title> Pong </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",500,400);
+
+var ball = new sjs.Image("Images/golfball.png");
+ball.type = "ball";
+ball.center();
+ball.friction = .0;
+ball.pushUp(4);
+ball.pushRight(4);
+ball.bounce(); 
+var paddle1 = new sjs.Image("Images/paddle.png");
+paddle1.type = "paddle"
+paddle1.moveTo(0,150);
+paddle1.setSize(20,100);
+
+var paddle2 = new sjs.Image("Images/paddle2.png");
+paddle2.type = "paddle";
+paddle2.moveTo(500,150);
+paddle2.setSize(20,100);
+
+    
+ sjs.keyDown(DOWN_KEY, function(){
+paddle1.pushDown();
+paddle2.pushDown();
+});
+
+  sjs.keyDown(UP_KEY, function(){
+paddle1.pushUp();
+paddle2.pushUp();
+});
+
+ sjs.onHit("ball","paddle", function(ball,paddle){
+sjs.bounceOff(ball,paddle);
+});
+
+ var score = 0;
+var score_txt = new sjs.Text("Score: 0", 21, "orange"); 
+sjs.onHit("ball","paddle", function(ball,paddle){
+score = score + 1;
+score_txt.setText("Score: "+score);
+sjs.bounceOff(ball,paddle);
+}); 
+
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> Pong </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>
+
